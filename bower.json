@@ -1,0 +1,23 @@
+{
+  "name": "mapstream",
+  "description": "A simple test for streaming map features from a server to a map.",
+  "main": "server.js",
+  "authors": [
+    "Brian Kraus"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "leaflet": "~0.7.7",
+    "oboe": "~2.1.2",
+    "jquery": "~2.1.4"
+  }
+}

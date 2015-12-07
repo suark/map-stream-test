@@ -1,0 +1,6 @@
+{
+	"directory": "public/vendor/",
+  	"scripts": {
+    	"postinstall": "wiredep -s public/index.html"
+  	}
+}

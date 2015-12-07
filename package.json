@@ -1,0 +1,21 @@
+{
+  "name": "mapstream",
+  "version": "1.0.0",
+  "description": "A simple test for streaming map features from a server to a map.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Brian Kraus",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-nodemon": "^2.0.4",
+    "gulp-notify": "^2.2.0",
+    "wiredep": "^2.2.2"
+  },
+  "dependencies": {
+    "restify": "^4.0.3"
+  }
+}
