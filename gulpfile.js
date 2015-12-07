@@ -12,7 +12,7 @@ gulp.task('serve', function() {
   nodemon({
     // the script to run the app
     script: 'server.js',
-    ext: 'js html',
+    ext: 'js html css',
   }).on('restart', function() {
     // when the app has restarted, run livereload.
     gulp.src('server.js')
