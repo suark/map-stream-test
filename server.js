@@ -34,7 +34,7 @@ server.get('/test', function(req, res, next) {
 	return next();
 });
 
-server.get('/fetch', function(req, res, next) {
+server.get('/traditional', function(req, res, next) {
 	res.send({
 		'thing1': 'hello',
 		'thing2': 0
@@ -57,6 +57,18 @@ server.get('/stream', function(req, res, next) {
 	res.end();
 
 });
+
+// 	{
+//    "foods": [
+//       {"name":"aubergine",    "colour":"purple"},
+//       {"name":"apple",        "colour":"red"},
+//       {"name":"nuts",         "colour":"brown"}
+//    ],
+//    "badThings": [
+//       {"name":"poison",       "colour":"pink"},
+//       {"name":"broken_glass", "colour":"green"}
+//    ]
+// }
 
 server.get('/.*/', restify.serveStatic({
 	'directory': './public',

@@ -46,22 +46,54 @@ var app = {
 			});
 	},
 
-	requestFeatures: function() {
+	requestTraditional: function() {
+		/*
+			Makes a request to fetch features using a traditional request.
+			Each fetched feature is passed to 'displayFeature'
+		*/
+		console.log('Requesting Features Traditionally')
+
+		var toCall = this.options.url + '/traditional';
+		oboe(toCall)
+			.done(function(data) {
+				console.log(data);
+			})
+			.fail(function() {
+				console.log('Didn\'t reveive data.')
+			});
+	},
+
+	requestStreaming: function() {
 		/*
 			Makes a request to fetch features.
 			Each fetched feature is passed to 'displayFeature'
 		*/
 		console.log('Requesting Features')
-			// oboe('/myapp/things.json')
-			// 	.done(function(things) {
 
-		// 		// we got it
-		// 	})
-		// 	.fail(function() {
+		var toCall = this.options.url + '/stream';
+		oboe(toCall)
+			.node('points.*', function(thing) {
 
-		// 		// we don't got it
-		// 	});
+			})
+			.node('polygons.*', function(badThing) {
+
+			})
+			.done(function(things) {
+				
+			});
 	},
+
+	// 	{
+	//    "foods": [
+	//       {"name":"aubergine",    "colour":"purple"},
+	//       {"name":"apple",        "colour":"red"},
+	//       {"name":"nuts",         "colour":"brown"}
+	//    ],
+	//    "badThings": [
+	//       {"name":"poison",       "colour":"pink"},
+	//       {"name":"broken_glass", "colour":"green"}
+	//    ]
+	// }
 
 	displayFeature: function(feature) {
 		/*

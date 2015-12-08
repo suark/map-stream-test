@@ -11,23 +11,18 @@ html, body {
 
 #toolbar {
 	height: 60px;
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
 }
 
-#requestButton {
+#fetchButton, #streamButton {
 	height: 40px;
-    width: 80%;
-    margin-top: 10px;
-    margin-left: 10%;
+  width: 40%;
+  margin-top: 10px;
 }
 
 #map {
 	height: calc(100% - 60px);
 	width: 100%;
 }
-
-
-/*#pond {
-  display: flex;
-
-justify-content: space-around;
-}*/
