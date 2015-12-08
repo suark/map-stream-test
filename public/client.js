@@ -8,6 +8,8 @@ var app = {
 		*/
 		console.log("App Initiated");
 
+		this.options = options;
+		this.options.url = 'http://localhost:3001';
 		//Create our LeafletJS Map
 		var map = this.createMap();
 
@@ -16,12 +18,32 @@ var app = {
 	},
 
 	setupControls: function() {
+		var self = this;
 		/*
 			Setup any buttons or other controls
 		*/
 		var requestButton = $('#requestButton');
 
-		requestButton.click(this.requestFeatures);
+		requestButton.click(function() {
+			self.requestTest(self);
+		});
+		// requestButton.click(this.requestFeatures);
+	},
+
+	requestTest: function(context) {
+		/*
+			Makes a request to the test api endpoint.
+		*/
+		console.log('Requesting Test')
+
+		var toCall = this.options.url + '/test';
+		oboe(toCall)
+			.done(function(data) {
+				console.log(data);
+			})
+			.fail(function() {
+				console.log('Didn\'t reveive data.')
+			});
 	},
 
 	requestFeatures: function() {
@@ -30,6 +52,15 @@ var app = {
 			Each fetched feature is passed to 'displayFeature'
 		*/
 		console.log('Requesting Features')
+			// oboe('/myapp/things.json')
+			// 	.done(function(things) {
+
+		// 		// we got it
+		// 	})
+		// 	.fail(function() {
+
+		// 		// we don't got it
+		// 	});
 	},
 
 	displayFeature: function(feature) {

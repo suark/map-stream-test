@@ -4,12 +4,21 @@ var server = restify.createServer({
 	name: 'MapStream'
 });
 
+// server.get('/test', function(req, res, next) {
+
+// 	res.header('Content-Type', 'application/json');
+// 	res.header("Access-Control-Allow-Origin", "*");
+// 	res.header("Access-Control-Allow-Headers", "X-Requested-With");
+
+// 	res.send('{"thing1":"hello","thing2":0}');
+// });
+
 server.get('/test', function(req, res, next) {
-
-	res.header("Access-Control-Allow-Origin", "*");
-	res.header("Access-Control-Allow-Headers", "X-Requested-With");
-
-	res.send('[{"thing1":"hello"},{"thing2":0}]');
+	res.send(200, {
+		'thing1': 'hello',
+		'thing2': 0
+	});
+	// return next();
 });
 
 // Quick route to send an sample number of pairs over a period of time

@@ -3,7 +3,6 @@ var gulp = require('gulp');
 var nodemon = require('gulp-nodemon');
 var notify = require('gulp-notify');
 var livereload = require('gulp-livereload');
-var wiredep = require('wiredep').stream;
 
 gulp.task('serve', function() {
   // listen for changes
