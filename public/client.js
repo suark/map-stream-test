@@ -31,23 +31,6 @@ var app = {
 		requestStreaming.click(function() {
 			self.requestStreaming(self);
 		});
-		// requestButton.click(this.requestFeatures);
-	},
-
-	requestTest: function(context) {
-		/*
-			Makes a request to the test api endpoint.
-		*/
-		console.log('Requesting Test')
-
-		var toCall = this.options.url + '/test';
-		oboe(toCall)
-			.done(function(data) {
-				console.log(data);
-			})
-			.fail(function() {
-				console.log('Didn\'t reveive data.')
-			});
 	},
 
 	requestTraditional: function() {
@@ -80,9 +63,11 @@ var app = {
 				console.log(thing);
 			})
 			.node('points.*', function(thing) {
+				console.log(thing);
 
 			})
 			.node('polygons.*', function(thing) {
+				console.log(thing);
 
 			})
 			.done(function(things) {

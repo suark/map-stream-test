@@ -26,29 +26,30 @@ var data_recipe = [{
 	amount: 100
 }];
 
-server.get('/test', function(req, res, next) {
-	res.send({
-		'thing1': 'hello',
-		'thing2': 0
-	});
-	return next();
-});
-
 server.get('/traditional', function(req, res, next) {
-	res.send({
-		'thing1': 'hello',
-		'thing2': 0
-	});
-	return next();
+	var message = '';
+	var sent = 0;
+	message += '{"things": [';
+
+	for (var i = 0; i < data_recipe.length + 1; i++) {
+
+		if (i < data_recipe.length + 1) {
+			setTimeout(function() {
+				message += '{"thing": "hello"},';
+				sent += 1;
+				if (sent === data_recipe.length) {
+					message += '{"thing": "end"}]}';
+					res.send(message);
+				};
+			}, 1000);
+		};
+	};
+
+	// return next();
 });
 
 // Quick route to send an sample number of pairs over a period of time
 server.get('/stream', function(req, res, next) {
-	numSent = 0;
-
-	// Send Header
-	res.header('Content-Type', 'application/json');
-	res.header('Access-Control-Allow-Origin', '*');
 
 	res.write('{"things": [');
 	res.write('{"thing1": "hello"},');
@@ -56,6 +57,7 @@ server.get('/stream', function(req, res, next) {
 	res.write('{"thing3": 1},');
 	res.write('{"thing4": 0}]}');
 	res.end();
+	return next();
 });
 
 // 	{
