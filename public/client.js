@@ -9,7 +9,7 @@ var app = {
 		console.log("App Initiated");
 
 		this.options = options;
-		this.options.url = 'http://localhost:3001';
+		this.options.url = 'http://localhost:3001/features';
 		//Create our LeafletJS Map
 		var map = this.createMap();
 
@@ -26,10 +26,10 @@ var app = {
 		var requestStreaming = $('#streamButton');
 
 		requestTraditional.click(function() {
-			self.requestTraditional(self);
+			self.requestTraditional();
 		});
 		requestStreaming.click(function() {
-			self.requestStreaming(self);
+			self.requestStreaming();
 		});
 	},
 
@@ -40,8 +40,7 @@ var app = {
 		*/
 		console.log('Requesting Features Traditionally')
 
-		var toCall = this.options.url + '/traditional';
-		oboe(toCall)
+		oboe(this.options.url)
 			.done(function(data) {
 				console.log(data);
 			})
@@ -57,8 +56,7 @@ var app = {
 		*/
 		console.log('Requesting Features with Streaming')
 
-		var toCall = this.options.url + '/stream';
-		oboe(toCall)
+		oboe(this.options.url)
 			.node('things.*', function(thing) {
 				console.log(thing);
 			})
@@ -74,18 +72,6 @@ var app = {
 				console.log(things);
 			});
 	},
-
-	// 	{
-	//    "foods": [
-	//       {"name":"aubergine",    "colour":"purple"},
-	//       {"name":"apple",        "colour":"red"},
-	//       {"name":"nuts",         "colour":"brown"}
-	//    ],
-	//    "badThings": [
-	//       {"name":"poison",       "colour":"pink"},
-	//       {"name":"broken_glass", "colour":"green"}
-	//    ]
-	// }
 
 	displayFeature: function(feature) {
 		/*
