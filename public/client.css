@@ -16,7 +16,7 @@ html, body {
 	justify-content: space-around;
 }
 
-#fetchButton, #streamButton {
+#traditionalButton, #streamButton {
 	height: 40px;
   width: 40%;
   margin-top: 10px;

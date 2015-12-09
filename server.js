@@ -50,12 +50,12 @@ server.get('/stream', function(req, res, next) {
 	res.header('Content-Type', 'application/json');
 	res.header('Access-Control-Allow-Origin', '*');
 
-	res.write({
-		'thing1': 'hello',
-		'thing2': 0
-	});
+	res.write('{"things": [');
+	res.write('{"thing1": "hello"},');
+	res.write('{"thing2": "bye"},');
+	res.write('{"thing3": 1},');
+	res.write('{"thing4": 0}]}');
 	res.end();
-
 });
 
 // 	{

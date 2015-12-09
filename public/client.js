@@ -22,10 +22,14 @@ var app = {
 		/*
 			Setup any buttons or other controls
 		*/
-		var requestButton = $('#requestButton');
+		var requestTraditional = $('#traditionalButton');
+		var requestStreaming = $('#streamButton');
 
-		requestButton.click(function() {
-			self.requestTest(self);
+		requestTraditional.click(function() {
+			self.requestTraditional(self);
+		});
+		requestStreaming.click(function() {
+			self.requestStreaming(self);
 		});
 		// requestButton.click(this.requestFeatures);
 	},
@@ -68,18 +72,21 @@ var app = {
 			Makes a request to fetch features.
 			Each fetched feature is passed to 'displayFeature'
 		*/
-		console.log('Requesting Features')
+		console.log('Requesting Features with Streaming')
 
 		var toCall = this.options.url + '/stream';
 		oboe(toCall)
+			.node('things.*', function(thing) {
+				console.log(thing);
+			})
 			.node('points.*', function(thing) {
 
 			})
-			.node('polygons.*', function(badThing) {
+			.node('polygons.*', function(thing) {
 
 			})
 			.done(function(things) {
-
+				console.log(things);
 			});
 	},
 
