@@ -7,34 +7,49 @@ var server = restify.createServer({
 /*This data recipe thing is just my goofy way of saying, 
 I want X features that take Y seconds to get, and so on.*/
 var data_recipe = [{
-	time: 15,
+	type: 'polygon',
+	time: 2000,
+	amount: 5
+}, {
+	type: 'polygon',
+	time: 1000,
 	amount: 10
 }, {
-	time: 10,
-	amount: 20
-}, {
-	time: 8,
+	type: 'polygon',
+	time: 300,
 	amount: 30
 }, {
-	time: 5,
-	amount: 40
+	type: 'point',
+	time: 750,
+	amount: 10
 }, {
-	time: 2,
-	amount: 50
-}, {
-	time: 1,
-	amount: 100
+	type: 'point',
+	time: 200,
+	amount: 20
 }];
 
 // Quick route to send an sample number of pairs over a period of time
 server.get('/features', function(req, res, next) {
 
+	var amountToSend = data_recipe.length;
+	var amountSent = 0;
+
 	res.write('{"things": [');
-	res.write('{"thing1": "hello"},');
-	res.write('{"thing2": "bye"},');
-	res.write('{"thing3": 1},');
-	res.write('{"thing4": 0}]}');
-	res.end();
+	for (var i = 0; i < amountToSend; i++) {
+		// data_recipe[i]
+
+		if (i !== amountToSend - 1) {
+			setTimeout(function() {
+				res.write('{"thing1": "hello"},');
+			}, 3000);
+		} else {
+			setTimeout(function() {
+				res.write('{"thing4": 0}]}');
+				res.end();
+			}, 3000);
+		};
+	};
+
 	return next();
 });
 
