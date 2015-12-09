@@ -4,19 +4,14 @@ html, body {
 	margin: 0px;	
 }
 
-#main {
-	height: 100%;
-	width: 100%;
-}
-
-#toolbar {
+.toolbar {
 	height: 60px;
 	width: 100%;
 	display: flex;
 	justify-content: space-around;
 }
 
-#traditionalButton, #streamButton {
+button {
 	height: 40px;
   width: 40%;
   margin-top: 10px;

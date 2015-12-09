@@ -8,21 +8,15 @@
 	  <link rel="stylesheet" href="./client.css" />
 	</head>
 	<body>
-		<div id="main">
-			<div id="toolbar">
-				<button id="traditionalButton">Traditional</button>
-				<button id="streamButton">Streaming</button>
-			</div>
-			<div id="map"><div>
-	  </div>
+		<div class="toolbar">
+			<button onClick="requestTraditional()">Get</button>
+			<button onClick="requestStreaming()">Stream</button>
+		</div>
+		<div id="map"><div>
 	  <!-- bower:js -->
-	  <script src="vendor/jquery/dist/jquery.js"></script>
 	  <script src="vendor/leaflet/dist/leaflet-src.js"></script>
 	  <script src="vendor/oboe/dist/oboe-browser.js"></script>
 	  <!-- endbower -->
 	  <script src="./client.js"></script>
-	  <script>
-	    app.init({container: $('#main')});
-	  </script>
 	</body>
 </html>
