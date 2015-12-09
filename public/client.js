@@ -17,11 +17,11 @@ function requestTraditional() {
 	console.log('Requesting Features Traditionally')
 
 	oboe(url)
-		.done(function(data) {
-			console.log(data);
+		.done(function(things) {
+			console.log(things);
 		})
 		.fail(function() {
-			console.log('Didn\'t reveive data.')
+			console.log('Didn\'t reveive things.')
 		});
 };
 
@@ -83,6 +83,4 @@ function createMap() {
 	}).addTo(map);
 
 	baseMaps['ESRI Arial'].addTo(map);
-
-	return map;
 };
