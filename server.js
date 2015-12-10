@@ -29,28 +29,81 @@ var data_recipe = [{
 }];
 
 // Quick route to send an sample number of pairs over a period of time
+// server.get('/features', function(req, res, next) {
+
+// 	var amountToSend = data_recipe.length;
+// 	var amountSent = 0;
+
+// 	res.write('{"things": [');
+// 	for (var i = 0; i < amountToSend; i++) {
+// 		// data_recipe[i]
+
+// 		if (i !== amountToSend - 1) {
+// 			setTimeout(function() {
+// 				res.write('{"thing1": "hello"},');
+// 			}, 3000);
+// 		} else {
+// 			setTimeout(function() {
+// 				res.write('{"thing4": 0}]}');
+// 				res.end();
+// 			}, 3000);
+// 		};
+// 	};
+
+// 	return next();
+// });
+
 server.get('/features', function(req, res, next) {
 
-	var amountToSend = data_recipe.length;
-	var amountSent = 0;
+	function createFeature() {
 
-	res.write('{"things": [');
-	for (var i = 0; i < amountToSend; i++) {
-		// data_recipe[i]
-
-		if (i !== amountToSend - 1) {
-			setTimeout(function() {
-				res.write('{"thing1": "hello"},');
-			}, 3000);
-		} else {
-			setTimeout(function() {
-				res.write('{"thing4": 0}]}');
-				res.end();
-			}, 3000);
-		};
+		var f = JSON.stringify({
+			type: "Feature",
+			properties: {},
+			geometry: {
+				type: "Polygon",
+				coordinates: [
+					[
+						[-104.05, 48.99],
+						[-97.22, 48.98],
+						[-96.58, 45.94],
+						[-104.03, 45.94],
+						[-104.05, 48.99]
+					]
+				]
+			}
+		});
+		console.log(f);
+		return f;
 	};
 
-	return next();
+	function sendFeature(lastRun) {
+		console.log('lastRun: ', lastRun);
+
+		res.write(createFeature() + ',');
+
+		if (lastRun) {
+			res.write('{"x":0, "y": 0}]}');
+			res.end();
+			return next();
+		}
+	};
+
+	var last = false;
+
+	res.write('{ "things": [');
+
+	for (var i = 0; i <= data_recipe.length; i++) {
+
+		// setTimeout(sendFeature, data_recipe[i].time, last);
+		setTimeout(sendFeature, 1000, last);
+
+
+		if (i === data_recipe.length - 1) {
+			last = true;
+		};
+		console.log('test ', i, last);
+	}
 });
 
 // 	{
