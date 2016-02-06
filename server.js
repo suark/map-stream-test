@@ -53,58 +53,83 @@ var data_recipe = [{
 // 	return next();
 // });
 
+// server.get('/features', function(req, res, next) {
+
+// 	function createFeature() {
+
+// 		var f = JSON.stringify({
+// 			type: "Feature",
+// 			properties: {},
+// 			geometry: {
+// 				type: "Polygon",
+// 				coordinates: [
+// 					[
+// 						[-104.05, 48.99],
+// 						[-97.22, 48.98],
+// 						[-96.58, 45.94],
+// 						[-104.03, 45.94],
+// 						[-104.05, 48.99]
+// 					]
+// 				]
+// 			}
+// 		});
+// 		console.log(f);
+// 		return f;
+// 	};
+
+// 	function sendFeature(lastRun) {
+// 		console.log('lastRun: ', lastRun);
+
+// 		res.write(createFeature() + ',');
+
+// 		if (lastRun) {
+// 			res.write('{"x":0, "y": 0}]}');
+// 			res.end();
+// 			return next();
+// 		}
+// 	};
+
+// 	var last = false;
+
+// 	res.write('{ "things": [');
+
+// 	for (var i = 0; i <= data_recipe.length; i++) {
+
+// 		// setTimeout(sendFeature, data_recipe[i].time, last);
+// 		setTimeout(sendFeature, 1000, last);
+
+
+// 		if (i === data_recipe.length - 1) {
+// 			last = true;
+// 		};
+// 		console.log('test ', i, last);
+// 	}
+// });
+
+
 server.get('/features', function(req, res, next) {
 
-	function createFeature() {
+	var count = 0;
+	var lastCount = 500;
+	var id = setInterval(sendFeatures, 10);
 
-		var f = JSON.stringify({
-			type: "Feature",
-			properties: {},
-			geometry: {
-				type: "Polygon",
-				coordinates: [
-					[
-						[-104.05, 48.99],
-						[-97.22, 48.98],
-						[-96.58, 45.94],
-						[-104.03, 45.94],
-						[-104.05, 48.99]
-					]
-				]
-			}
-		});
-		console.log(f);
-		return f;
-	};
-
-	function sendFeature(lastRun) {
-		console.log('lastRun: ', lastRun);
-
-		res.write(createFeature() + ',');
-
-		if (lastRun) {
-			res.write('{"x":0, "y": 0}]}');
+	function sendFeatures() {
+		console.log('count: ', count, ' lastCount: ', lastCount);
+		if (count === lastCount) {
+			res.write('{"x":0, "y": 0}');
 			res.end();
-			return next();
+			clearInterval(id);
+			console.log('-----------------------------');
+			return next()
+		} else {
+			count += 10;
 		}
-	};
-
-	var last = false;
-
-	res.write('{ "things": [');
-
-	for (var i = 0; i <= data_recipe.length; i++) {
-
-		// setTimeout(sendFeature, data_recipe[i].time, last);
-		setTimeout(sendFeature, 1000, last);
-
-
-		if (i === data_recipe.length - 1) {
-			last = true;
-		};
-		console.log('test ', i, last);
 	}
+
+
 });
+
+
 
 // 	{
 //    "foods": [

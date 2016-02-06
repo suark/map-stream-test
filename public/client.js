@@ -21,7 +21,7 @@ function requestTraditional() {
 			console.log(things);
 		})
 		.fail(function() {
-			console.log('Didn\'t reveive things.')
+			console.log('Didn\'t receive things.')
 		});
 };
 
