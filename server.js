@@ -110,20 +110,52 @@ var data_recipe = [{
 server.get('/features', function(req, res, next) {
 
 	var count = 0;
-	var lastCount = 500;
+	var lastCount = 5000;
 	var id = setInterval(sendFeatures, 10);
 
+	res.write('{ "things": [');
+
 	function sendFeatures() {
-		console.log('count: ', count, ' lastCount: ', lastCount);
 		if (count === lastCount) {
-			res.write('{"x":0, "y": 0}');
+			res.write('{"x":0, "y": 0}]}');
 			res.end();
 			clearInterval(id);
+			console.log('count: ', count, ' lastCount: ', lastCount);
+
 			console.log('-----------------------------');
 			return next()
 		} else {
+			res.write(createFeature() + ',');
 			count += 10;
 		}
+	}
+
+	function createFeature() {
+
+		var f = JSON.stringify({
+			type: "Feature",
+			properties: {},
+			geometry: {
+				type: "Polygon",
+				coordinates: [
+					[
+						[-104.05, 48.99],
+						[-97.22, 48.98],
+						[-96.58, 45.94],
+						[-104.03, 45.94],
+						[-104.05, 48.99]
+					]
+				]
+			}
+		});
+		// console.log(f);
+		return f;
+	};
+
+	function provideFeatures() {
+
+
+
 	}
 
 
