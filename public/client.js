@@ -2,9 +2,7 @@ console.log("App Initiated");
 
 var url = 'http://localhost:3001/features';
 
-createMap();
-
-
+var map = createMap();
 
 
 //Functions ~~~~
@@ -17,11 +15,12 @@ function requestTraditional() {
 	console.log('Requesting Features Traditionally')
 
 	oboe(url)
-		.done(function(things) {
-			console.log(things);
+		.done(function(features) {
+			console.log(features);
+			L.geoJson(features.polygons).addTo(map);
 		})
 		.fail(function() {
-			console.log('Didn\'t receive things.')
+			console.log('Error requesting features.')
 		});
 };
 
@@ -33,27 +32,22 @@ function requestStreaming() {
 	console.log('Requesting Features with Streaming')
 
 	oboe(url)
-		.node('things.*', function(thing) {
-			console.log(thing);
+		.node('polygons.*', function(polygon) {
+			console.log(polygon);
+			L.geoJson(polygon).addTo(map);
 		})
-		.node('points.*', function(thing) {
-			console.log(thing);
-
-		})
-		.node('polygons.*', function(thing) {
-			console.log(thing);
-
-		})
-		.done(function(things) {
-			console.log(things);
+		.done(function(features) {
+			console.log(features);
 		});
 };
 
-function displayFeature(feature) {
+function displayFeature(feature, type) {
 	/*
 		Take a feature and attempts to add it to the map
 	*/
-	console.log('Displaying Features: ', feature);
+	console.log('Displaying Features: ', feature, type);
+
+	L.geoJson(feature).addTo(map);
 };
 
 function createMap() {
@@ -64,8 +58,9 @@ function createMap() {
 	console.log('Creating the Map')
 
 	var map = L.map('map', {
-		center: [53.579, -109.072],
-		zoom: 5
+		// center: [53.579, -109.072],
+		center: [40, 15],
+		zoom: 2
 	});
 
 	var baseMaps = {
@@ -83,4 +78,6 @@ function createMap() {
 	}).addTo(map);
 
 	baseMaps['ESRI Arial'].addTo(map);
+
+	return map;
 };
