@@ -1,26 +1,24 @@
-console.log("App Initiated");
-
+/*
+	A basic client that contains a map.
+	It can request polygons using oboe like a traditional ajax request
+	and like a streaming request.
+*/
 var url = 'http://localhost:3001/features';
-
 var map = createMap();
-
-
-//Functions ~~~~
 
 function requestTraditional() {
 	/*
 		Makes a request to fetch features using a traditional request.
 		Each fetched feature is passed to 'displayFeature'
 	*/
-	console.log('Requesting Features Traditionally')
-
+	showLoadingIndicator(true);
 	oboe(url)
 		.done(function(features) {
-			console.log(features);
 			L.geoJson(features.polygons).addTo(map);
+			showLoadingIndicator(false);
 		})
 		.fail(function() {
-			console.log('Error requesting features.')
+			showLoadingIndicator(false);
 		});
 };
 
@@ -29,25 +27,25 @@ function requestStreaming() {
 		Makes a request to fetch features using streaming.
 		Each fetched feature is passed to 'displayFeature'
 	*/
-	console.log('Requesting Features with Streaming')
-
+	showLoadingIndicator(true);
 	oboe(url)
 		.node('polygons.*', function(polygon) {
-			console.log(polygon);
 			L.geoJson(polygon).addTo(map);
 		})
 		.done(function(features) {
-			console.log(features);
+			showLoadingIndicator(false);
 		});
 };
 
-function displayFeature(feature, type) {
+function showLoadingIndicator(flag) {
 	/*
-		Take a feature and attempts to add it to the map
+		Get the loading indicator to show or hide
 	*/
-	console.log('Displaying Features: ', feature, type);
-
-	L.geoJson(feature).addTo(map);
+	if (flag) {
+		document.getElementById('loading').style.visibility = 'visible';
+	} else {
+		document.getElementById('loading').style.visibility = 'hidden';
+	};
 };
 
 function createMap() {
@@ -55,8 +53,6 @@ function createMap() {
 		Create our Leaflet Map.
 		This assumes that a div exists with the id="map"
 	*/
-	console.log('Creating the Map')
-
 	var map = L.map('map', {
 		// center: [53.579, -109.072],
 		center: [40, 15],
