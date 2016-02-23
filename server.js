@@ -1,11 +1,13 @@
+//Easy API
 var restify = require('restify');
-
 var server = restify.createServer({
 	name: 'MapStream'
 });
 
+//Contains functions to get random features to show in a map
 var random = require('geojson-random');
 
+//Sends a random number of geojson polygons approximately every 10 ms.
 server.get('/features', function(req, res, next) {
 
 	var count = 10;
@@ -14,6 +16,7 @@ server.get('/features', function(req, res, next) {
 
 	res.write('{ "polygons": [');
 
+	//Sends features and will end the response if count === lastCount
 	function sendFeatures() {
 		if (count === lastCount) {
 			res.write(givePolygons(1, 3, true));
@@ -26,8 +29,11 @@ server.get('/features', function(req, res, next) {
 		}
 	};
 
+	//Will provide a string containing a list of random geojson polygons
+	//count: the number of polygons you want in the string
+	//num_vertices: the number of vertices each polygon will have
+	//last: I just use this to get the string finished with some closing brackets
 	function givePolygons(count, num_vertices, last) {
-
 		var polygonString = '';
 		var featureCollection = random.polygon(count, num_vertices, 1);
 		var features = featureCollection.features;
@@ -45,6 +51,7 @@ server.get('/features', function(req, res, next) {
 		return polygonString;
 	};
 
+	//Passes random numbers to the first two parameters in the givePolygons function
 	function giveRandomPolygons() {
 		
 		var count = Math.floor(Math.random() * 10 + 1);
@@ -54,7 +61,7 @@ server.get('/features', function(req, res, next) {
 	};
 });
 
-
+//Serve the public folder so the site is easily visible
 server.get('/.*/', restify.serveStatic({
 	'directory': './public',
 	'default': 'index.html'

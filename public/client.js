@@ -8,8 +8,7 @@ var map = createMap();
 
 function requestTraditional() {
 	/*
-		Makes a request to fetch features using a traditional request.
-		Each fetched feature is passed to 'displayFeature'
+		Makes a request to fetch features and uses oboe like a traditional request.
 	*/
 	showLoadingIndicator(true);
 	oboe(url)
@@ -24,8 +23,7 @@ function requestTraditional() {
 
 function requestStreaming() {
 	/*
-		Makes a request to fetch features using streaming.
-		Each fetched feature is passed to 'displayFeature'
+		Makes a request to fetch features and uses oboe to receive them as a stream.
 	*/
 	showLoadingIndicator(true);
 	oboe(url)
@@ -33,6 +31,9 @@ function requestStreaming() {
 			L.geoJson(polygon).addTo(map);
 		})
 		.done(function(features) {
+			showLoadingIndicator(false);
+		})
+		.fail(function() {
 			showLoadingIndicator(false);
 		});
 };
