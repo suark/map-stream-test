@@ -34,20 +34,28 @@ button {
   width: 100%;
 }
 
-#map-message, #loading {
+#message-area, #loading {
   position: absolute;
   z-index: 10;
-  bottom: 0;
-  left: 0;
-  width: 200px;
-  height: 100px;
-  visibility: hidden;
+  top: 120px;
 }
 
-#map-message {
+#loading {
+  left: 0;
+  visibility: hidden;
+  width: 200px;
+  height: 100px;
+}
+
+#message-area {
+  left: -146px;
+  width: 136px;
+  padding: 4px;
   border: none;
-  border-radius: 2px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+  border-radius: 4px;
   background-color: #fff;
+  transition: 1s;
 }
 
 .sk-fading-circle .sk-circle {
