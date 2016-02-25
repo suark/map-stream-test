@@ -37,20 +37,21 @@ button {
 #message-area, #loading {
   position: absolute;
   z-index: 10;
-  top: 120px;
+  top: 10px;
 }
 
 #loading {
-  left: 0;
+  right: 0;
   visibility: hidden;
   width: 200px;
   height: 100px;
 }
 
 #message-area {
-  left: -146px;
+  right: -150px;
   width: 136px;
   padding: 4px;
+  padding-left: 8px;
   border: none;
   box-shadow: 0 1px 5px rgba(0,0,0,0.4);
   border-radius: 4px;
@@ -62,7 +63,7 @@ button {
   width: 80px;
   height: 80px;
   position: absolute;
-  left: 5px;
+  right: 5px;
   top: 15px;
 }
 

@@ -5,6 +5,7 @@
 */
 var url = 'http://localhost:3001/features';
 var map = createMap();
+var message = '';
 
 function requestTraditional() {
 	/*
@@ -57,16 +58,16 @@ function showLoadingIndicator(flag) {
 	};
 };
 
-function showMessageArea(flag, message) {
+function showMessageArea(flag, m) {
 	/*
 		Get the message area to show/hide and contain a message.
 	*/
 	if (flag) {
-		document.getElementById('message-area').style.left = '10px';
+		document.getElementById('message-area').style.right = '10px';
+		message = m;
 		document.getElementById('message-area').innerHTML = message;
 	} else {
-		document.getElementById('message-area').style.left = '-146px';
-		document.getElementById('message-area').innerHTML = '';
+		document.getElementById('message-area').style.right = '-150px';
 	};
 };
 
