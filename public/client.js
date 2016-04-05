@@ -6,6 +6,8 @@
 var url = 'http://localhost:3001/features';
 var map = createMap();
 var message = '';
+var loading = false;
+var layer = [];
 
 function requestTraditional() {
 	/*
@@ -13,9 +15,10 @@ function requestTraditional() {
 	*/
 	showLoadingIndicator(true);
 	showMessageArea(false);
+	removeLayers();
 	oboe(url)
 		.done(function(features) {
-			L.geoJson(features.polygons).addTo(map);
+			loadLayers(L.geoJson(features.polygons));
 			showLoadingIndicator(false);
 			console.log(features);
 			showMessageArea(true, 'Loaded ' + features.polygons.length + ' features');
@@ -32,9 +35,10 @@ function requestStreaming() {
 	*/
 	showLoadingIndicator(true);
 	showMessageArea(false);
+	removeLayers();
 	oboe(url)
 		.node('polygons.*', function(polygon) {
-			L.geoJson(polygon).addTo(map);
+			loadLayers(L.geoJson(polygon));
 		})
 		.done(function(features) {
 			showLoadingIndicator(false);
@@ -47,10 +51,33 @@ function requestStreaming() {
 		});
 };
 
+function loadLayers(data) {
+	/*
+		Loads some GeoJson into the map and updates the layers variable
+	*/
+	layer.push(data);
+	for (var i = layer.length - 1; i >= 0; i--) {
+		layer[i].addTo(map);
+	};
+};
+
+function removeLayers() {
+	/*
+		Clears the GeoJson layers
+	*/
+	if (layer.length !== 0) {
+		for (var i = layer.length - 1; i >= 0; i--) {
+			map.removeLayer(layer[i]);
+		};
+		layer = [];
+	};
+};
+
 function showLoadingIndicator(flag) {
 	/*
 		Get the loading indicator to show or hide
 	*/
+	loading = flag;
 	if (flag) {
 		document.getElementById('loading').style.visibility = 'visible';
 	} else {

@@ -11,8 +11,7 @@ var random = require('geojson-random');
 server.get('/features', function(req, res, next) {
 
 	var count = 10;
-	// var lastCount = 8000;
-	var lastCount = 2000;
+	var lastCount = 3000;
 	var id = setInterval(sendFeatures, 10);
 
 	res.write('{ "polygons": [');
