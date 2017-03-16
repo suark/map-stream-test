@@ -17,7 +17,6 @@
   ],
   "dependencies": {
     "leaflet": "~0.7.7",
-    "oboe": "~2.1.2",
-    "jquery": "~2.1.4"
+    "oboe": "~2.1.2"
   }
 }
